@@ -39,9 +39,11 @@ class User(AbstractUser):
     username = None
     
     telegram_id = models.BigIntegerField(unique=True)
-    phone = models.CharField(validators=[phone_validator], max_length=15, unique=True)
+    phone = models.CharField(validators=[phone_validator], max_length=15, unique=True, null=True)
     name = models.CharField(max_length=64)
     rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)], default=0)
+    telegram_username = models.CharField(max_length=64, null=True, blank=True, unique=True)
+    chat_id = models.BigIntegerField(null=True, blank=True, unique=True)
     
     USERNAME_FIELD = "telegram_id"
     REQUIRED_FIELDS = []
