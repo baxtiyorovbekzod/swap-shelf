@@ -2,7 +2,7 @@ from telegram import Bot, Update
 from telegram.ext import CommandHandler, Dispatcher, Filters, MessageHandler
 from django.conf import settings
 
-from apps.bot.handlers.messages import contact_save
+from apps.bot.handlers.messages import contact_save, get_OTP_code
 
 from .handlers.commands import login, start
 
@@ -13,6 +13,7 @@ dispatcher.add_handler(CommandHandler('start', start))
 dispatcher.add_handler(CommandHandler('login', login))
 dispatcher.add_handler(CommandHandler('help', help))
 dispatcher.add_handler(MessageHandler(Filters.contact, contact_save))
+dispatcher.add_handler(MessageHandler(Filters.regex("^🔢 OTP kod olish$"), get_OTP_code))
 
 
 
