@@ -1,31 +1,12 @@
 from django.db import models
 from apps.users.models import User
-
-
-class BookCondition(models.TextChoices):
-    NEW = "new", "New"
-    GOOD = "good", "Good"
-    FAIR = "fair", "Fair"
-    WORN = "worn", "Worn"
-
-
-class BookType(models.TextChoices):
-    BORROW = "borrow", "Borrow"
-    PERMANENT = "permanent", "Permanent"
-    BOTH = "both", "Both"
-
-
-class BookStatus(models.TextChoices):
-    AVAILABLE = "available", "Available"
-    UNAVAILABLE = "unavailable", "Unavailable"
-
+from .choices import BookCondition, BookType, BookStatus
 
 class Genre(models.Model):
     name = models.CharField(max_length=64, unique=True)
 
     def __str__(self):
         return self.name
-
 
 class Book(models.Model):
     owner = models.ForeignKey(User, related_name="books", on_delete=models.CASCADE)
@@ -53,3 +34,4 @@ class Book(models.Model):
 
     def __str__(self):
         return f"{self.title} - {self.author}"
+    created_at = models.DateTimeField(auto_now_add=True)
